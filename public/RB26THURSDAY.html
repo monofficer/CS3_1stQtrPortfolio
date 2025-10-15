@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(to top, #000000, #252525);
+      font-family: 'Cinzel', serif;
+      color: rgb(252, 197, 17);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; 
+      text-align: center;
+      padding-top: 18px;
+      box-sizing: border-box;
+    }
+
+    /*  Subtle gilded glow  OwO */
+    h1, p, marquee, .period, #subject-display, .btn {
+      text-shadow:
+        0 0 2px rgba(252, 197, 17, 0.4),
+        0 0 4px rgba(252, 197, 17, 0.2);
+    }
+
+    h1 {
+      margin-top: 90px;
+      margin-bottom: 5px;
+      font-size: 70px;
+      font-weight: bold;
+    }
+
+    p {
+      margin-top: 5px;
+      margin-bottom: 90px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    p2 {
+      margin-top: 20px;
+      margin-bottom: 90px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    marquee {
+      margin: 0 0 40px 0;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* === Slider Section === hehe >w< */
+    .slider-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .arrow {
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 18px solid rgb(252, 197, 17);
+      margin-bottom: 20px;
+    }
+
+    .slider-container {
+      position: relative;
+      width: 400px;
+      overflow: hidden;
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+
+    .period {
+      min-width: 80px;
+      text-align: center;
+      font-size: 24px;
+      padding: 20px 0;
+      cursor: pointer;
+    }
+
+    .controls {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .btn {
+      background: none;
+      border: none;
+      color: rgb(252, 197, 17);
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: rgb(252, 197, 17);
+      color: #000;
+    }
+
+    #subject-display {
+      margin-top: 35px;
+      font-size: 28px;
+    }
+  </style>
+</head>
+
+<body>
+  <!--this code was made by Connor Salva, please dont steal :> -->
+  <!-- === Top Section === ooooh :OO -->
+  <div>
+    <h1>T H U R S D A Y</h1>
+    
+
+    <marquee behavior="scroll" direction="left" scrollamount="20">
+      Thursday, Jueves, Jeudi, Donnerstag, Giovedì, Quinta-feira, Donderdag, Torsdag, Torsdag, Torsdag, Torstai, Fimmtudagur, Czwartek, Čtvrtek, Štvrtok, Csütörtök, Πέμπτη, Perşembe, Четверг, Четвер, الخميس, יום חמישי, गुरुवार, 星期四, 木曜日, 목요일
+    </marquee>
+  </div>
+  <p2>T H E  T H U R S D A Y  S C H E D U L E  O F  R U B I D I U M  2 9.</p2>
+
+  <!-- === Bottom Slider Section === hehe >:3 -->
+  <div class="slider-wrapper">
+    <div class="arrow"></div>
+
+    <div class="slider-container">
+      <div class="slider" id="slider">
+        <div class="period">1</div>
+        <div class="period">2</div>
+        <div class="period">3</div>
+        <div class="period">4</div>
+        <div class="period">5</div>
+        <div class="period">6</div>
+        <div class="period">7</div>
+        <div class="period">8</div>
+        <div class="period">9</div>
+        <div class="period">10</div>
+        <div class="period">11</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn" onclick="moveLeft()">◀</button>
+      <button class="btn" onclick="moveRight()">▶</button>
+    </div>
+
+    <div id="subject-display">S T A T I S T I C S</div>
+
+    <p2>T H E  A R R O W S  A B O V E  A R E  C O R R E S P O N D E N T  T O  G O I N G  F O R W A R D  O R  B A C K W A R D  I N  P E R I O D S .</p2>
+  </div>
+
+  <script>
+    const subjects = [
+      "S T A T I S T I C S",
+      "S T U D Y  P E R I O D   I",
+      "B I O L O G Y  I",
+      "B I O L O G Y  I I",
+      "F I L I P I N O",
+      "V A L U E S  E D U C A T I O N",
+      "L U N C H",
+      "C H E M I S T R Y",
+      "S T U D Y  P E R I O D  I I",
+      "P H Y S I C A L  E D U C A T I O N  I",
+      "P H Y S I C A L  E D U C A T I O N  I I"
+    ];
+
+    let currentIndex = 0;
+    const slider = document.getElementById('slider');
+    const subjectDisplay = document.getElementById('subject-display');
+
+    function updateSlider() {
+      // Center the current period under the arrow
+      const offset = (400 / 2) - (80 / 2);
+      slider.style.transform = `translateX(${offset - currentIndex * 80}px)`;
+      subjectDisplay.textContent = subjects[currentIndex];
+    }
+
+    function moveLeft() {
+      if (currentIndex > 0) currentIndex--;
+      updateSlider();
+    }
+
+    function moveRight() {
+      if (currentIndex < subjects.length - 1) currentIndex++;
+      updateSlider();
+    }
+
+    // Start with period 1 centered
+    updateSlider();
+  </script>
+
+
+</body>
+</html>
